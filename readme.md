@@ -32,7 +32,38 @@ At the same time, the program also supports simple handling of key value storage
 
 Usage
 
-using a db backend
+## using by interface
+
+```go
+package main
+
+import "github.com/aenjoy/aemkvDB"
+import "github.com/aenjoy/aemkvDB/backends/redis" //using redis backends
+/*
+import(
+	"github.com/aenjoy/aemkvDB/backends/buntdb"
+	"github.com/aenjoy/aemkvDB/backends/etcd"
+	"github.com/aenjoy/aemkvDB/backends/file"
+	"github.com/aenjoy/aemkvDB/backends/integ"
+	"github.com/aenjoy/aemkvDB/backends/json"
+	"github.com/aenjoy/aemkvDB/backends/redis"
+	"github.com/aenjoy/aemkvDB/backends/sql"
+)
+*/
+var db aemkvDB.StrApi //- data type support: string
+//var db2 aemkvDB.AutoApi //auto detect backend - data type support :any
+func main(){
+	db = redis.New(aemkvDB.ConfigMemDb{
+		Addr:     []string{"127.0.0.1:6379"},
+		Password: "123456",
+		Database: "",
+	})
+	db.Set("key", "value")
+	print(db.Get("key")) //out value
+}
+```
+
+## using a db backend
 
 - import package from github.com/aenjoy/aemkvDB/backends/***** 
 
@@ -40,7 +71,7 @@ using a db backend
  
 other example [view](/example)
 
-## BuntDB backend
+### BuntDB backend
 
 ```golang
 package main
@@ -60,7 +91,7 @@ func main() {
 
 ```
 
-## Redis backend
+### Redis backend
 
 ```go
 package example
@@ -94,12 +125,14 @@ type StrApi interface {
 	Get(key string) string
 	Delete(key string) error
 	IsOpened() bool
+	Close() error
 }
 type AutoApi interface {
 	Set(key string, value interface{}) error
 	Get(key string) interface{}
 	Delete(key string) error
 	IsOpened() bool
+    Close() error
 }
 ```
 

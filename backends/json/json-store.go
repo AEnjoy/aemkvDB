@@ -19,7 +19,7 @@ type JsonDB struct {
 // open mode: 0: OpenFile, data is json-file path. 1: CreateFile, data is new json-file path. 2:Using JSON data, data is a json string
 func (db *JsonDB) open(mode int, data string) error {
 	if db.opened {
-		return errors.New("Db is opened")
+		return errors.New("db is opened")
 	}
 	switch mode {
 	case 0:
@@ -98,7 +98,7 @@ func (db *JsonDB) GetFloat64(key string) float64 {
 }
 func (db *JsonDB) SetStr(key, value string) error {
 	if !db.IsOpened() {
-		return errors.New("Db is not opened")
+		return errors.New("db is not opened")
 	}
 	exists := db.Db.Get(key).Exists()
 	if !exists {
@@ -113,7 +113,7 @@ func (db *JsonDB) SetStr(key, value string) error {
 }
 func (db *JsonDB) SetInt(key, value string) error {
 	if !db.IsOpened() {
-		return errors.New("Db is not opened")
+		return errors.New("db is not opened")
 	}
 	exists := db.Db.Get(key).Exists()
 	if !exists {
@@ -128,7 +128,7 @@ func (db *JsonDB) SetInt(key, value string) error {
 }
 func (db *JsonDB) SetFloat64(key string, value float64) error {
 	if !db.IsOpened() {
-		return errors.New("Db is not opened")
+		return errors.New("db is not opened")
 	}
 	exists := db.Db.Get(key).Exists()
 	if !exists {
@@ -143,7 +143,7 @@ func (db *JsonDB) SetFloat64(key string, value float64) error {
 }
 func (db *JsonDB) SetBool(key string, value bool) error {
 	if !db.IsOpened() {
-		return errors.New("Db is not opened")
+		return errors.New("db is not opened")
 	}
 	exists := db.Db.Get(key).Exists()
 	if !exists {
@@ -182,7 +182,7 @@ func (db *JsonDB) Set(key string, value interface{}) (err error) {
 }
 func (db *JsonDB) Delete(key string) error {
 	if !db.IsOpened() {
-		return errors.New("Db is not opened")
+		return errors.New("db is not opened")
 	}
 	exists := db.Db.Get(key).Exists()
 	if !exists {
